@@ -3,6 +3,7 @@ node_modules/
 
 # Ignore build artifacts
 dist/
+cdk.out/
 
 # Ignore environment-specific files
 .env
@@ -14,6 +15,11 @@ dist/
 .vscode/
 .idea/
 
+# Testing
+coverage/
+reports/
+
 # Ignore OS-specific files
 .DS_Store
 Thumbs.db
+

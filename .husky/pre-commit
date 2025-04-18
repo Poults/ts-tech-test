@@ -1,0 +1,5 @@
+
+pnpm lint-staged
+pnpm check:types
+pnpm check:lint
+pnpm run test:unit
