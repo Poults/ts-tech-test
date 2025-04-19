@@ -1,12 +1,12 @@
 {
   "name": "twinkl-typescript-tech-test",
   "version": "1.0.0",
-  "main": "dist/src/index.cjs",
   "description": "Tech test for application at Twinkl",
   "repository": {
     "type": "git",
     "url": "https://github.com/Poults/ts-tech-test"
   },
+  "type": "module",
   "engines": {
     "pnpm": ">=9.0.0"
   },
@@ -15,9 +15,9 @@
     "#*": "./*"
   },
   "scripts": {
-    "build": "npx tsc",
-    "start": "node dist/src/index.js",
-    "dev": "nodemon src/index.ts",
+    "build": "tsup src/server/index.ts",
+    "start": "node dist/index.cjs",
+    "dev": "nodemon src/server/index.ts",
     "check:types": "tsc --noEmit",
     "check:lint": "eslint . && prettier --check .",
     "fix:lint": "eslint . --fix && prettier --check . --write",
@@ -40,6 +40,7 @@
     "husky": "9.1.7",
     "lint-staged": "15.5.0",
     "prettier": "3.5.3",
+    "tsup": "8.4.0",
     "typescript": "5.8.2",
     "typescript-eslint": "8.29.0",
     "vitest": "1.6.0",
