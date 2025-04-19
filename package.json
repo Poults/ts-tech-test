@@ -17,7 +17,7 @@
   "scripts": {
     "build": "tsup src/server/index.ts",
     "start": "node dist/index.cjs",
-    "dev": "nodemon src/server/index.ts",
+    "dev": "tsx src/server/index.ts",
     "check:types": "tsc --noEmit",
     "check:lint": "eslint . && prettier --check .",
     "fix:lint": "eslint . --fix && prettier --check . --write",
@@ -41,6 +41,7 @@
     "lint-staged": "15.5.1",
     "prettier": "3.5.3",
     "tsup": "8.4.0",
+    "tsx": "4.19.3",
     "typescript": "5.8.3",
     "typescript-eslint": "8.30.1",
     "vitest": "3.1.1",
