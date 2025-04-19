@@ -1,0 +1,101 @@
+name: Quality Checks
+
+on:
+  workflow_call:
+
+jobs:
+  Linting:
+    name: 🧹 Linting & Formatting
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        id: pnpm-install
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: "/home/runner/setup-pnpm/node_modules/.bin/store/v3"
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Run lint check
+        run: pnpm run check:lint
+
+  TypeChecks:
+    name: 🔍 Type Checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        id: pnpm-install
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: "/home/runner/setup-pnpm/node_modules/.bin/store/v3"
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Run Static Typechecks
+        run: pnpm run check:types
+
+  UnitTests:
+    name: 🧪 Unit Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        id: pnpm-install
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: "/home/runner/setup-pnpm/node_modules/.bin/store/v3"
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Run Unit Tests
+        run: pnpm run test:unit
+
+  Build:
+    name: 🔨 Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        id: pnpm-install
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: "/home/runner/setup-pnpm/node_modules/.bin/store/v3"
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Build
+        run: pnpm run build

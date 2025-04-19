@@ -1,0 +1,12 @@
+name: Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  QualityChecks:
+    name: 🧪  Quality Checks
+    secrets: inherit
+    uses: ./.github/workflows/_quality_checks.yml
