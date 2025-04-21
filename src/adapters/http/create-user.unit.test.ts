@@ -1,10 +1,6 @@
 import { StatusCodes } from "#node_modules/http-status-codes/build/cjs";
 import { dalCreateUser, UserType } from "#src/domain/dal/user";
-import {
-  createUser,
-  CreateUserRequest,
-  CreateUserResponse,
-} from "./create-user";
+import { createUser, CreateUserResponse } from "./create-user";
 
 vi.mock("#src/domain/dal/user");
 const dalCreateUserMock = vi.mocked(dalCreateUser);
@@ -14,11 +10,11 @@ describe("create-user.ts", () => {
     dalCreateUserMock.mockReset();
   });
 
-  const validRequestBody: CreateUserRequest = {
+  const validRequestBody = {
     fullName: "Kanye Test",
     password: "Hunter12",
     emailAddress: "kanye.test@securepass.co.uk",
-    createdDate: new Date(),
+    createdDate: "2025-04-21T19:54:12",
     userType: UserType.Parent,
   };
 
@@ -60,7 +56,7 @@ describe("create-user.ts", () => {
     it.each(testcases)(
       `$password  should return ${StatusCodes.BAD_REQUEST}`,
       async ({ password, errorMessage }) => {
-        const requestBody: CreateUserRequest = {
+        const requestBody = {
           ...validRequestBody,
           password,
         };
@@ -70,7 +66,7 @@ describe("create-user.ts", () => {
 
         const expected: CreateUserResponse = {
           statusCode: StatusCodes.BAD_REQUEST,
-          payload: errorMessage,
+          payload: JSON.stringify({ password: [errorMessage] }),
         };
 
         expect(actual).toEqual(expected);

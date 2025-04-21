@@ -18,7 +18,7 @@ const postUserRequestSchema = z.object({
       message: "password must contain at least one lowercase character",
     }),
   emailAddress: z.string(),
-  createdDate: z.date(),
+  createdDate: z.string().transform((str) => new Date(str)),
   userType: z.nativeEnum(UserType),
 });
 
@@ -48,7 +48,7 @@ export const createUser = async (
 
       return {
         statusCode: StatusCodes.BAD_REQUEST,
-        payload: JSON.parse(error.message)[0].message,
+        payload: JSON.stringify(error.flatten().fieldErrors),
       };
     } else {
       console.error("create-user.ts encountered an error");
