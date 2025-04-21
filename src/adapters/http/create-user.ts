@@ -1,20 +1,8 @@
-import { dalCreateUser } from "#src/domain/dal/user";
+import { dalCreateUser, User, UserType } from "#src/domain/dal/user";
 import * as z from "zod";
+import { ApiResponse } from "./types";
 
-export interface CreateUserRequest {
-  fullName: string;
-  password: string;
-  emailAddress: string;
-  createdDate: Date;
-  userType: UserType;
-}
-
-export enum UserType {
-  "Student" = "Student",
-  "Teacher" = "Teacher",
-  "Parent" = "Parent",
-  "PrivateTutor" = "Private Tutor",
-}
+export type CreateUserRequest = Omit<User, "identifier">;
 
 const postUserRequestSchema = z.object({
   fullName: z.string(),
@@ -33,14 +21,11 @@ const postUserRequestSchema = z.object({
   userType: z.nativeEnum(UserType),
 });
 
-export interface createUserResponse {
-  payload: string;
-  statusCode: number;
-}
+export type CreateUserResponse = ApiResponse<string>;
 
 export const createUser = async (
   requestBody: unknown,
-): Promise<createUserResponse> => {
+): Promise<CreateUserResponse> => {
   try {
     console.debug("request body", requestBody);
 

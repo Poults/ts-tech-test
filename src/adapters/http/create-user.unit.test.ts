@@ -1,9 +1,8 @@
-import { dalCreateUser } from "#src/domain/dal/user";
+import { dalCreateUser, UserType } from "#src/domain/dal/user";
 import {
   createUser,
   CreateUserRequest,
-  createUserResponse,
-  UserType,
+  CreateUserResponse,
 } from "./create-user";
 
 vi.mock("#src/domain/dal/user");
@@ -27,7 +26,7 @@ describe("create-user.ts", () => {
     dalCreateUserMock.mockResolvedValue(mockUserId);
     const actual = await createUser(validRequestBody);
 
-    const expected: createUserResponse = {
+    const expected: CreateUserResponse = {
       statusCode: 200,
       payload: `Created User ${mockUserId}`,
     };
@@ -68,7 +67,7 @@ describe("create-user.ts", () => {
 
         console.log(actual);
 
-        const expected: createUserResponse = {
+        const expected: CreateUserResponse = {
           statusCode: 401,
           payload: errorMessage,
         };

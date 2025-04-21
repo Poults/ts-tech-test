@@ -25,3 +25,9 @@ export const dalCreateUser = async (user: Omit<User, "identifier">) => {
 
   return identifier;
 };
+
+export const dalGetUser = async (identifier: string) => {
+  return users.find((user) => {
+    return user.identifier === identifier;
+  });
+};

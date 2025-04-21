@@ -1,4 +1,5 @@
 import { createUser } from "#src/adapters/http/create-user";
+import { getUser } from "#src/adapters/http/get-user";
 import express, { Express, Request, Response } from "express";
 
 const app: Express = express();
@@ -14,9 +15,10 @@ app.post("/user", async (req: Request, res: Response) => {
   res.status(statusCode).send(payload);
 });
 
-app.get("/user/:id", (req: Request, res: Response) => {
-  console.log("request params", req.params);
-  res.send("Hello World!");
+app.get("/user/:id", async (req: Request, res: Response) => {
+  const { statusCode, payload } = await getUser(req.params);
+
+  res.status(statusCode).send(payload);
 });
 
 app.listen(port, () => {
