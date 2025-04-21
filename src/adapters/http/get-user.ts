@@ -1,6 +1,7 @@
 import { dalGetUser, UserType } from "#src/domain/dal/user";
 import * as z from "zod";
 import { ApiResponse } from "./types";
+import { StatusCodes } from "#node_modules/http-status-codes/build/cjs";
 
 export interface GetUserRequest {
   userId: string;
@@ -33,12 +34,12 @@ export const getUser = async (
 
     if (!user) {
       return {
-        statusCode: 404,
+        statusCode: StatusCodes.NOT_FOUND,
         payload: `Unable to locate a user with id ${parsedRequest.userId}`,
       };
     } else {
       return {
-        statusCode: 200,
+        statusCode: StatusCodes.OK,
 
         //spreading here would be dangerous as it would also include the password
         payload: {
@@ -56,14 +57,14 @@ export const getUser = async (
       console.debug("zod error message", error.message);
 
       return {
-        statusCode: 400,
+        statusCode: StatusCodes.BAD_REQUEST,
         payload: JSON.stringify(error.flatten().fieldErrors),
       };
     } else {
       console.error("create-user.ts encountered an error");
       console.debug(error);
       return {
-        statusCode: 500,
+        statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
         payload: "server error",
       };
     }

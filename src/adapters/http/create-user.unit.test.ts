@@ -1,3 +1,4 @@
+import { StatusCodes } from "#node_modules/http-status-codes/build/cjs";
 import { dalCreateUser, UserType } from "#src/domain/dal/user";
 import {
   createUser,
@@ -21,13 +22,13 @@ describe("create-user.ts", () => {
     userType: UserType.Parent,
   };
 
-  it("When given a valid request should return true", async () => {
+  it(`When given a valid request should return ${StatusCodes.OK} and the user id`, async () => {
     const mockUserId = "mock-user-id";
     dalCreateUserMock.mockResolvedValue(mockUserId);
     const actual = await createUser(validRequestBody);
 
     const expected: CreateUserResponse = {
-      statusCode: 200,
+      statusCode: StatusCodes.OK,
       payload: `Created User ${mockUserId}`,
     };
 
@@ -57,7 +58,7 @@ describe("create-user.ts", () => {
     ];
 
     it.each(testcases)(
-      "Validate Password $password",
+      `$password  should return ${StatusCodes.BAD_REQUEST}`,
       async ({ password, errorMessage }) => {
         const requestBody: CreateUserRequest = {
           ...validRequestBody,
@@ -68,7 +69,7 @@ describe("create-user.ts", () => {
         console.log(actual);
 
         const expected: CreateUserResponse = {
-          statusCode: 401,
+          statusCode: StatusCodes.BAD_REQUEST,
           payload: errorMessage,
         };
 

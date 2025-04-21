@@ -1,6 +1,7 @@
 import { dalCreateUser, User, UserType } from "#src/domain/dal/user";
 import * as z from "zod";
 import { ApiResponse } from "./types";
+import { StatusCodes } from "http-status-codes";
 
 export type CreateUserRequest = Omit<User, "identifier">;
 
@@ -37,7 +38,7 @@ export const createUser = async (
     const newUserId = await dalCreateUser(parsedRequest);
 
     return {
-      statusCode: 200,
+      statusCode: StatusCodes.OK,
       payload: `Created User ${newUserId}`,
     };
   } catch (error) {
@@ -46,14 +47,14 @@ export const createUser = async (
       console.debug("zod error message", error.message);
 
       return {
-        statusCode: 401,
+        statusCode: StatusCodes.BAD_REQUEST,
         payload: JSON.parse(error.message)[0].message,
       };
     } else {
       console.error("create-user.ts encountered an error");
       console.debug(error);
       return {
-        statusCode: 500,
+        statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
         payload: "server error",
       };
     }

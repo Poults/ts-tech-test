@@ -1,3 +1,4 @@
+import { StatusCodes } from "#node_modules/http-status-codes/build/cjs";
 import { dalGetUser, User, UserType } from "#src/domain/dal/user";
 import {
   getUser,
@@ -19,11 +20,11 @@ describe("get-user.ts", () => {
   };
 
   //This usecase shouldn't actually happen, as a path param needs to be specified
-  it("When given an invalid request should return Bad Request (400)", async () => {
+  it(`When given an invalid request should return  ${StatusCodes.BAD_GATEWAY}`, async () => {
     const actual = await getUser({ invalidRequest: "yup" });
 
     const expected: GetUserFailureResponse = {
-      statusCode: 400,
+      statusCode: StatusCodes.BAD_REQUEST,
       payload: JSON.stringify({ userId: ["Required"] }),
     };
 
@@ -31,14 +32,14 @@ describe("get-user.ts", () => {
     expect(actual).toEqual(expected);
   });
 
-  it("When given an valid request for an unknown user, return Not Found (404)", async () => {
+  it(`When given an valid request for an unknown user, return ${StatusCodes.NOT_FOUND}`, async () => {
     const mockUser = undefined;
 
     dalGetUserMock.mockResolvedValue(mockUser);
     const actual = await getUser(validRequestBody);
 
     const expected: GetUserFailureResponse = {
-      statusCode: 404,
+      statusCode: StatusCodes.NOT_FOUND,
       payload: `Unable to locate a user with id ${validRequestBody.userId}`,
     };
 
@@ -46,7 +47,7 @@ describe("get-user.ts", () => {
     expect(actual).toEqual(expected);
   });
 
-  it("When given a valid request should return true", async () => {
+  it(`When given a valid request should return ${StatusCodes.OK} and the user`, async () => {
     const mockUser: User = {
       identifier: validRequestBody.userId,
       fullName: "Kanye Test",
@@ -60,7 +61,7 @@ describe("get-user.ts", () => {
     const actual = await getUser(validRequestBody);
 
     const expected: GetUserSuccessResponse = {
-      statusCode: 200,
+      statusCode: StatusCodes.OK,
       payload: {
         identifier: mockUser.identifier,
         fullName: mockUser.fullName,
