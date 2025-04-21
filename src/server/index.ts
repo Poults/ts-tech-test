@@ -1,3 +1,4 @@
+import { createUser } from "#src/adapters/http/create-user";
 import express, { Express, Request, Response } from "express";
 
 const app: Express = express();
@@ -7,8 +8,10 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
 });
 
-app.post("/user", (req: Request, res: Response) => {
-  res.send("Hello World!");
+app.post("/user", async (req: Request, res: Response) => {
+  const { statusCode, payload } = await createUser(req.body);
+
+  res.status(statusCode).send(payload);
 });
 
 app.get("/user/:id", (req: Request, res: Response) => {
