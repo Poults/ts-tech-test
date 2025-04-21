@@ -2,11 +2,15 @@ import { createUser } from "#src/adapters/http/create-user";
 import { getUser } from "#src/adapters/http/get-user";
 import express, { Express, Request, Response } from "express";
 
+import postmanCollection from "../../api-spec-postman.json";
+
 const app: Express = express();
 const port = process.env.PORT || 3000;
 
+app.use(express.json());
+
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World!");
+  res.send(postmanCollection);
 });
 
 app.post("/user", async (req: Request, res: Response) => {
@@ -15,7 +19,7 @@ app.post("/user", async (req: Request, res: Response) => {
   res.status(statusCode).send(payload);
 });
 
-app.get("/user/:id", async (req: Request, res: Response) => {
+app.get("/user/:userId", async (req: Request, res: Response) => {
   const { statusCode, payload } = await getUser(req.params);
 
   res.status(statusCode).send(payload);

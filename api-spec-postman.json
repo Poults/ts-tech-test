@@ -1,0 +1,61 @@
+{
+  "info": {
+    "_postman_id": "7ee1d8e9-4154-4452-88d3-84bee0931997",
+    "name": "ts-tech-test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "608492",
+    "_collection_link": "https://chefster.postman.co/workspace/Chefster~292fe6ba-8016-4a9d-8de4-92eec8291c79/collection/608492-7ee1d8e9-4154-4452-88d3-84bee0931997?action=share&source=collection_link&creator=608492"
+  },
+  "item": [
+    {
+      "name": "user",
+      "item": [
+        {
+          "name": "Get User",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/user/:userId",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["user", ":userId"],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "    {\n    \"fullName\": \"Kanye Test\",\n    \"password\": \"Hunter12\",\n    \"emailAddress\": \"kanye.test@securepass.co.uk\",\n    \"createdDate\": \"2025-04-21T19:54:12\",\n    \"userType\": \"Parent\"\n    }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/user",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["user"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
