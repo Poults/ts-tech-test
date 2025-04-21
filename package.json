@@ -16,7 +16,7 @@
   },
   "scripts": {
     "build": "tsup src/server/index.ts",
-    "start": "node dist/index.cjs",
+    "start": "pnpm build && node dist/index.cjs",
     "dev": "tsx src/server/index.ts",
     "check:types": "tsc --noEmit",
     "check:lint": "eslint . && prettier --check .",
