@@ -22,10 +22,12 @@ const postUserRequestSchema = z.object({
   userType: z.nativeEnum(UserType),
 });
 
-export type CreateUserResponse = ApiResponse<{
+export type CreateUserPayload = {
   message: string;
   userId?: string;
-}>;
+};
+
+export type CreateUserResponse = ApiResponse<CreateUserPayload>;
 
 export const createUser = async (
   requestBody: unknown,

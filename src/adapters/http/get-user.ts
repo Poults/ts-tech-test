@@ -32,6 +32,7 @@ export const getUser = async (
 
     const user = await dalGetUser(parsedRequest.userId);
 
+    console.debug("user", user);
     if (!user) {
       return {
         statusCode: StatusCodes.NOT_FOUND,
@@ -41,7 +42,7 @@ export const getUser = async (
       return {
         statusCode: StatusCodes.OK,
 
-        //spreading here would be dangerous as it would also include the password
+        //spreading here would be dangerous as it would also include the password despite not being on the return type
         payload: {
           createdDate: user.createdDate,
           emailAddress: user.emailAddress,
