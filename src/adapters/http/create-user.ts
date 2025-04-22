@@ -22,7 +22,10 @@ const postUserRequestSchema = z.object({
   userType: z.nativeEnum(UserType),
 });
 
-export type CreateUserResponse = ApiResponse<string>;
+export type CreateUserResponse = ApiResponse<{
+  message: string;
+  userId?: string;
+}>;
 
 export const createUser = async (
   requestBody: unknown,
@@ -39,7 +42,7 @@ export const createUser = async (
 
     return {
       statusCode: StatusCodes.OK,
-      payload: `Created User ${newUserId}`,
+      payload: { message: `Created new user`, userId: newUserId },
     };
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -48,14 +51,14 @@ export const createUser = async (
 
       return {
         statusCode: StatusCodes.BAD_REQUEST,
-        payload: JSON.stringify(error.flatten().fieldErrors),
+        payload: { message: JSON.stringify(error.flatten().fieldErrors) },
       };
     } else {
       console.error("create-user.ts encountered an error");
       console.debug(error);
       return {
         statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
-        payload: "server error",
+        payload: { message: "server error" },
       };
     }
   }

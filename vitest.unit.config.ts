@@ -5,7 +5,7 @@ import defaultConfig from "./vitest.config";
 export default defineConfig(
   Object.assign({}, defaultConfig, {
     test: Object.assign({}, defaultConfig.test, {
-      include: ["**/*.unit.test.ts", "**/*.int.test.ts"],
+      include: ["**/*.unit.test.ts"],
     }),
   }),
 );

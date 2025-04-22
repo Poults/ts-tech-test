@@ -25,7 +25,7 @@ describe("create-user.ts", () => {
 
     const expected: CreateUserResponse = {
       statusCode: StatusCodes.OK,
-      payload: `Created User ${mockUserId}`,
+      payload: { message: `Created new user`, userId: mockUserId },
     };
 
     expect(dalCreateUserMock).toBeCalledTimes(1);
@@ -66,7 +66,7 @@ describe("create-user.ts", () => {
 
         const expected: CreateUserResponse = {
           statusCode: StatusCodes.BAD_REQUEST,
-          payload: JSON.stringify({ password: [errorMessage] }),
+          payload: { message: JSON.stringify({ password: [errorMessage] }) },
         };
 
         expect(actual).toEqual(expected);
