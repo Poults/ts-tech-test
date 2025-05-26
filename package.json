@@ -37,7 +37,7 @@
     "eslint": "9.27.0",
     "eslint-config-prettier": "10.1.5",
     "eslint-plugin-prettier": "5.4.0",
-    "globals": "16.1.0",
+    "globals": "16.2.0",
     "http-status-codes": "2.3.0",
     "husky": "9.1.7",
     "lint-staged": "16.0.0",
@@ -50,6 +50,6 @@
     "uuid": "11.1.0",
     "vitest": "3.1.4",
     "vitest-mock-extended": "3.1.0",
-    "zod": "3.25.23"
+    "zod": "3.25.28"
   }
 }
